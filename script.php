@@ -16,6 +16,12 @@ if (!file_exists($filePath)) {
     die;
 }
 
+$fileInfo = pathinfo($filePath);
+
+if ($fileInfo['extension'] != 'csv') {
+    echo "Wrong file extension. Please provide csv file format \n";
+}
+
 $capacity = $argv[2];
 
 if (!is_numeric($capacity)) {
@@ -33,15 +39,19 @@ if (!$method) {
 
 $csvReader = new CsvReader();
 $csvArr = $csvReader->csvToArray($filePath);
+try {
+    $params = $method->prepareParams($csvArr);
+} catch (Exception $e) {
+    echo $e->getMessage();die;
+}
 
-$result = $method->solve($csvArr,$capacity);
+$result = $method->solve($params['ids'],$params['weights'],$params['values'],$capacity);
 
 echo "Bag's capacity: \n" . $capacity . "\n";
 echo "Chosen items: \n";
 foreach ($result['chosen_items'] as $item) {
     echo $item . "\n";
 }
-
 echo "Total weight: \n" . $result['total_weight'] . "\n";
 echo "Total value: \n" . $result['total_value'] . "\n";
 

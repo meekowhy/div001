@@ -1,27 +1,25 @@
 <?php
 
-include_once __DIR__ . '/KnapsackInterface.php';
+include_once __DIR__ . '/KnapsackAbstract.php';
 
-class Knapsack1 implements KnapsackInterface
+class Knapsack1 extends KnapsackAbstract
 {
-    private $table = array();
-
-    public function solve(array $items, $capacity)
+    public function solve(array $ids, array $weights, array $values, $capacity)
     {
-        $ids = array();
-        $weights = array();
-        $values = array();
-
-        foreach ($items as $item) {
-            $ids[] = $item['item_id'];
-            $weights[] = $item['item_weight'];
-            $values[] = $item['item_value'];
-        }
-
-        return $this->mySolve($weights, $values, $ids, count($ids), (int)$capacity, $this->table);
+        return $this->mySolve($weights, $values, $ids, count($ids), (int)$capacity);
     }
 
-    public function mySolve($weights, $values, $items, $num_items, $capacity, &$m)
+    /**
+     * @param $weights
+     * @param $values
+     * @param $items
+     * @param $num_items
+     * @param $capacity
+     * @param $m
+     * @return array
+     * PHP implemantion of https://beckernick.github.io/dynamic-programming-knapsack/
+     */
+    private function mySolve($weights, $values, $items, $num_items, $capacity)
     {
 
         //create 2D table of 0s
@@ -65,6 +63,5 @@ class Knapsack1 implements KnapsackInterface
             'total_weight' => $totalWeight,
             'chosen_items' => $chosenItems
         ];
-
     }
 }

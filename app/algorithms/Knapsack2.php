@@ -1,9 +1,12 @@
 <?php
 
-include_once __DIR__ . '/KnapsackInterface.php';
+include_once __DIR__ . '/KnapsackAbstract.php';
 
-class Knapsack2 implements KnapsackInterface
+class Knapsack2 extends KnapsackAbstract
 {
+    /**
+     * @var array
+     */
     private $table = array();
 
     /**
@@ -11,18 +14,8 @@ class Knapsack2 implements KnapsackInterface
      * @param $capacity
      * @return array
      */
-    public function solve(array $items,$capacity)
+    public function solve(array $ids, array $weights, array $values, $capacity)
     {
-        $ids = array();
-        $weights = array();
-        $values = array();
-
-        foreach ($items as $item) {
-            $ids[] = $item['item_id'];
-            $weights[] = $item['item_weight'];
-            $values[] = $item['item_value'];
-        }
-
         $result = $this->knapSolveFast($weights, $values, count($weights) - 1, $capacity, $this->table);
         $chosenItems = array();
         $totalWeight = 0;
@@ -30,7 +23,6 @@ class Knapsack2 implements KnapsackInterface
             $chosenItems[] = $ids[$i];
             $totalWeight += $weights[$i];
         }
-
         return [
             'total_value' => $result[0],
             'total_weight' => $totalWeight,
@@ -46,6 +38,7 @@ class Knapsack2 implements KnapsackInterface
      * @param $capacity
      * @param $m
      * @return array
+     * http://rosettacode.org/wiki/Knapsack_problem/0-1#PHP
      */
     private function knapSolveFast($w, $v, $i, $capacity, &$m) {
 
