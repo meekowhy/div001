@@ -29,13 +29,7 @@ if (!$method) {
     die;
 }
 
-$csvArr = CsvReader::csvToArray($filePath);
-
-try {
-    $params = $method->prepareParams($csvArr);
-} catch (\Exception $e) {
-    echo $e->getMessage();die;
-}
+$params = CsvReader::csvToArray($filePath);
 
 $result = $method->solve($params['ids'],$params['weights'],$params['values'],$capacity);
 
