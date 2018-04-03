@@ -28,8 +28,11 @@ if (!$method) {
     echo "No such method. Please provide a number describing a method you want to use or use default method by leaving the parameter blank. \n";
     die;
 }
-
-$params = CsvReader::csvToArray($filePath);
+try {
+    $params = CsvReader::csvToArray($filePath);
+} catch (\Exception $e) {
+    $e->getMessage();die;
+}
 
 $result = $method->solve($params['ids'],$params['weights'],$params['values'],$capacity);
 
