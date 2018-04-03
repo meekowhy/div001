@@ -1,32 +1,49 @@
 <?php
 
-include_once __DIR__ . '/app/CsvReader.php';
-include_once __DIR__ . '/app/algorithms/KnapsackFactory.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
+use App\CsvReader;
+use App\ArgvValidator;
+use App\Algorithm\KnapsackFactory;
 
-if (count($argv) < 3) {
-    echo "The script needs at least two additional arguments. \nPlease provide relative path to CSV file as first argument, a number describing bag's capacity as second argument and optionally a number describing a method to solve a problem. \n";
-    die;
+//include_once __DIR__ . '/app/CsvReader.php';
+//include_once __DIR__ . '/app/ArgvValidator.php';
+//include_once __DIR__ . '/app/Algorithm/KnapsackFactory.php';
+
+try {
+    ArgvValidator::validateArgumentsNo($argv);
+} catch (Exception $e) {
+    echo $e->getMessage();die;
 }
 
 $filePath = ($argv[1][0] != '/') ? __DIR__.'/'.$argv[1] : __DIR__.$argv[1];
 
-if (!file_exists($filePath)) {
-    echo "File doesn't exist. \n";
-    die;
+try {
+    ArgvValidator::validateFilePath($filePath);
+} catch (Exception $e) {
+    echo $e->getMessage();die;
 }
 
-$fileInfo = pathinfo($filePath);
-
-if ($fileInfo['extension'] != 'csv') {
-    echo "Wrong file extension. Please provide csv file format \n";
+try {
+    ArgvValidator::validateFileExtension($filePath);
+} catch (Exception $e) {
+    echo $e->getMessage();die;
 }
 
 $capacity = $argv[2];
 
-if (!is_numeric($capacity)) {
-    echo "Please provide a number describing bag's capacity.\n";
-    die;
+try {
+    ArgvValidator::validateCapacityArgument($capacity);
+} catch (Exception $e) {
+    echo $e->getMessage();die;
+}
+
+if (isset($argv[3])) {
+    try {
+        ArgvValidator::validateMethodArgument($argv[3]);
+    } catch (Exception $e) {
+        echo $e->getMessage();die;
+    }
 }
 
 $method = isset($argv[3]) ? KnapsackFactory::create($argv[3]) : KnapsackFactory::create();
@@ -36,9 +53,8 @@ if (!$method) {
     die;
 }
 
+$csvArr = CsvReader::csvToArray($filePath);
 
-$csvReader = new CsvReader();
-$csvArr = $csvReader->csvToArray($filePath);
 try {
     $params = $method->prepareParams($csvArr);
 } catch (Exception $e) {

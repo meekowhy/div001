@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/KnapsackAbstract.php';
+namespace App\Algorithm;
 
 class Knapsack2 extends KnapsackAbstract
 {
@@ -10,7 +10,9 @@ class Knapsack2 extends KnapsackAbstract
     private $table = array();
 
     /**
-     * @param $items
+     * @param array $ids
+     * @param array $weights
+     * @param array $values
      * @param $capacity
      * @return array
      */

@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require __DIR__ .'/../app/algorithms/Knapsack1.php';
+require __DIR__ . '/../app/Algorithm/Knapsack1.php';
 require __DIR__ .'/../app/CsvReader.php';
 
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/KnapsackAbstract.php';
+namespace App\Algorithm;
 
 class Knapsack1 extends KnapsackAbstract
 {
@@ -17,12 +17,13 @@ class Knapsack1 extends KnapsackAbstract
      * @param $capacity
      * @param $m
      * @return array
-     * PHP implemantion of https://beckernick.github.io/dynamic-programming-knapsack/
+     * inspired by https://beckernick.github.io/dynamic-programming-knapsack/
      */
     private function mySolve($weights, $values, $items, $num_items, $capacity)
     {
 
         //create 2D table of 0s
+        $m = array();
         for ($row = 0; $row <= $capacity; $row++) {
             for($col = 0; $col <= $num_items; $col++ ) {
                 $m[$row][$col] = 0;

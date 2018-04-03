@@ -1,7 +1,6 @@
 <?php
 
-include_once __DIR__ . '/Knapsack1.php';
-include_once __DIR__ . '/Knapsack2.php';
+namespace App\Algorithm;
 
 class KnapsackFactory
 {

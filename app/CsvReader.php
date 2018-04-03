@@ -1,8 +1,10 @@
 <?php
 
+namespace App;
+
 class CsvReader
 {
-    public function csvToArray($file)
+    public static function csvToArray($file)
     {
         $csv = array_map('str_getcsv', file($file));
         $columns = explode(';', array_shift($csv)[0]);
