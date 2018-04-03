@@ -8,23 +8,31 @@ class ArgvValidatorTest extends TestCase {
     /**
      * @expectedException Exception
      */
-    public function testExceptionValidateNoArguments()
+    public function testExceptionNoArguments()
     {
-        ArgvValidator::validateArgumentsNo([]);
+        ArgvValidator::validateArguments([]);
     }
 
     /**
      * @expectedException Exception
      */
-    public function testExceptionValidateToLittleArguments()
+    public function testExceptionToLittleArguments()
     {
-        ArgvValidator::validateArgumentsNo([1,2]);
+        ArgvValidator::validateArguments([1,2]);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testExceptionNegativeCapacity()
+    {
+        ArgvValidator::validateArguments(['phpscript',1,-1,3]);
     }
 
 
-    public function testNoExceptionValidateArgumentsNo()
+    public function testNoExceptionArguments()
     {
-        $this->assertTrue(ArgvValidator::validateArgumentsNo([1,2,3]));
+        $this->assertTrue(ArgvValidator::validateArguments(['phpscript',1,1,3]));
     }
 
     /**
@@ -32,7 +40,7 @@ class ArgvValidatorTest extends TestCase {
      */
     public function testExceptionNoFile()
     {
-        ArgvValidator::validateFilePath('asdasd/sdsa/sssssss');
+        ArgvValidator::validateFile('asdasd/sdsa/sssssss');
     }
 
     /**
@@ -40,12 +48,12 @@ class ArgvValidatorTest extends TestCase {
      */
     public function testExceptionWrongExtension()
     {
-        ArgvValidator::validateFileExtension('asdasd.exe');
+        ArgvValidator::validateFile('asdasd.exe');
     }
 
     public function testNoExceptionFile()
     {
-        $this->assertTrue(ArgvValidator::validateFilePath(__DIR__ . '/../assets/dane.csv'));
+        $this->assertTrue(ArgvValidator::validateFile(__DIR__ . '/../assets/dane.csv'));
     }
 
 

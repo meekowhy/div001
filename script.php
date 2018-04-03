@@ -7,7 +7,7 @@ use App\ArgvValidator;
 use App\Algorithm\KnapsackFactory;
 
 try {
-    ArgvValidator::validateArgumentsNo($argv);
+    ArgvValidator::validateArguments($argv);
 } catch (\Exception $e) {
     echo $e->getMessage();die;
 }
@@ -15,32 +15,12 @@ try {
 $filePath = ($argv[1][0] != '/') ? __DIR__.'/'.$argv[1] : __DIR__.$argv[1];
 
 try {
-    ArgvValidator::validateFilePath($filePath);
-} catch (\Exception $e) {
-    echo $e->getMessage();die;
-}
-
-try {
-    ArgvValidator::validateFileExtension($filePath);
+    ArgvValidator::validateFile($filePath);
 } catch (\Exception $e) {
     echo $e->getMessage();die;
 }
 
 $capacity = $argv[2];
-
-try {
-    ArgvValidator::validateCapacityArgument($capacity);
-} catch (\Exception $e) {
-    echo $e->getMessage();die;
-}
-
-if (isset($argv[3])) {
-    try {
-        ArgvValidator::validateMethodArgument($argv[3]);
-    } catch (\Exception $e) {
-        echo $e->getMessage();die;
-    }
-}
 
 $method = isset($argv[3]) ? KnapsackFactory::create($argv[3]) : KnapsackFactory::create();
 
