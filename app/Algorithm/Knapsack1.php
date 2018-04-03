@@ -15,17 +15,13 @@ class Knapsack1 extends KnapsackAbstract
      * @param $items
      * @param $num_items
      * @param $capacity
-     * @param $m
      * @return array
-     * inspired by https://beckernick.github.io/dynamic-programming-knapsack/
      */
-    private function mySolve($weights, $values, $items, $num_items, $capacity)
+    public function mySolve($weights, $values, $items, $num_items, $capacity)
     {
-
-        //create 2D table of 0s
         $m = array();
         for ($row = 0; $row <= $capacity; $row++) {
-            for($col = 0; $col <= $num_items; $col++ ) {
+            for($col = 0; $col <= $num_items; $col++ ) { 
                 $m[$row][$col] = 0;
             }
         }

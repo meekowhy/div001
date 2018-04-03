@@ -6,13 +6,9 @@ use App\CsvReader;
 use App\ArgvValidator;
 use App\Algorithm\KnapsackFactory;
 
-//include_once __DIR__ . '/app/CsvReader.php';
-//include_once __DIR__ . '/app/ArgvValidator.php';
-//include_once __DIR__ . '/app/Algorithm/KnapsackFactory.php';
-
 try {
     ArgvValidator::validateArgumentsNo($argv);
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();die;
 }
 
@@ -20,13 +16,13 @@ $filePath = ($argv[1][0] != '/') ? __DIR__.'/'.$argv[1] : __DIR__.$argv[1];
 
 try {
     ArgvValidator::validateFilePath($filePath);
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();die;
 }
 
 try {
     ArgvValidator::validateFileExtension($filePath);
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();die;
 }
 
@@ -34,14 +30,14 @@ $capacity = $argv[2];
 
 try {
     ArgvValidator::validateCapacityArgument($capacity);
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();die;
 }
 
 if (isset($argv[3])) {
     try {
         ArgvValidator::validateMethodArgument($argv[3]);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
         echo $e->getMessage();die;
     }
 }
@@ -57,7 +53,7 @@ $csvArr = CsvReader::csvToArray($filePath);
 
 try {
     $params = $method->prepareParams($csvArr);
-} catch (Exception $e) {
+} catch (\Exception $e) {
     echo $e->getMessage();die;
 }
 

@@ -14,7 +14,7 @@ abstract class KnapsackAbstract
 
         foreach ($items as $item) {
             if (!isset($item['item_id']) || !isset($item['item_weight']) || !isset($item['item_value'])) {
-                throw new Exception("Wrong data format! (check you csv file) \n");
+                throw new \Exception("Wrong data format! (check you csv file) \n");
             }
             $ids[] = $item['item_id'];
             $weights[] = $item['item_weight'];

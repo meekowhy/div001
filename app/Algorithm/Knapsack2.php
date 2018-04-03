@@ -42,7 +42,7 @@ class Knapsack2 extends KnapsackAbstract
      * @return array
      * http://rosettacode.org/wiki/Knapsack_problem/0-1#PHP
      */
-    private function knapSolveFast($w, $v, $i, $capacity, &$m) {
+    public function knapSolveFast($w, $v, $i, $capacity, &$m) {
 
         // Return memo if we have one
         if (isset($m[$i][$capacity])) {
