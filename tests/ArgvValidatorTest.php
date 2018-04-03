@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Algorithm\KnapsackFactory;
 use App\ArgvValidator;
 
 class ArgvValidatorTest extends TestCase {
